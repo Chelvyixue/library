@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'cards/index'
+
   # get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
@@ -27,7 +29,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'static_pages#home'
 
-  resources :books
+  resources :books, only: [:index, :create]
+  resources :cards, only: [:index, :create, :destroy]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

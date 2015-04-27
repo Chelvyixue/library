@@ -1,0 +1,23 @@
+<% provide(:title, "借书证管理") %>
+<h1>借书证管理</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= will_paginate %>
+
+    <ul class="list-group">
+      <% @cards.each do |card| %>
+        <li class="list-group-item">
+          <h4 class="list-group-item-heading"><%= card.id %></h4>
+          <p class="list-group-item-text">
+            <b><%= card.name %></b> <%= card.dept %> <%= card.card_type %>
+            <%= link_to "删除", card, method: :delete, data: { confirm: "确定删除？" },
+                class: "list-group-item-text right" %>
+          </p>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= will_paginate %>
+  </div>
+</div>

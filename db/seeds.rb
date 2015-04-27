@@ -9,3 +9,7 @@
 
 Admin.create(name: 'admin', email: 'admin@foo.bar',
              password: 'password', password_confirmation: 'password')
+
+Card.create(name: "宝玉", dept: "怡红院", card_type: "学生")
+Card.create(name: "黛玉", dept: "潇湘馆", card_type: "学生")
+Card.create(name: "宝钗", dept: "蘅芜苑", card_type: "学生")
