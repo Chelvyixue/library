@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
+  # get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
+
   get 'static_pages/home'
   get 'static_pages/about'
   get 'static_pages/contact'
+
+  get 'import_one' => 'static_pages#import_one'
+  get 'import_mul' => 'static_pages#import_mul'
+  get 'query' => 'static_pages#query'
+  get 'borrow' => 'static_pages#borrow'
+  get 'return' => 'static_pages#return'
+  get 'card_manage' => 'static_pages#card_manage'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

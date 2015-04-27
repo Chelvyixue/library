@@ -1,0 +1,13 @@
+<header class="navbar navbar-fixed-top navbar-default">
+  <div class="container-fluid">
+    <%= link_to "简单图书馆系统", root_url, id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "控制台", root_url %></li>
+        <% if logged_in? %>
+          <li><%= link_to "退出", logout_path, method: :delete %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>
