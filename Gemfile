@@ -3,6 +3,7 @@ source 'http://ruby.taobao.org'
 
 gem 'rails', '4.2.1'
 gem 'mysql2'
+gem 'bcrypt', '>= 3.1.7'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '>= 3.3.3'
 gem 'uglifier', '>= 1.3.0'
