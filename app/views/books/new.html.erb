@@ -1,0 +1,37 @@
+<% provide(:title, "添加一本书") %>
+<h1>图书信息</h1>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <%= form_for(@book) do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label "书号" %>
+      <%= f.text_field :isbn, value: @book.isbn, readonly: true,
+          class: "form-control" %>
+
+      <%= f.label "书名" %>
+      <%= f.text_field :title, class: "form-control" %>
+
+      <%= f.label "类别" %>
+      <%= f.text_field :category, class: "form-control" %>
+
+      <%= f.label "出版社" %>
+      <%= f.text_field :publisher, class: "form-control" %>
+
+      <%= f.label "作者" %>
+      <%= f.text_field :author, class: "form-control" %>
+
+      <%= f.label "年份" %>
+      <%= f.number_field :year, class: "form-control" %>
+
+      <%= f.label "价格" %>
+      <%= f.number_field :price, class: "form-control" %>
+
+      <%= f.label "数量" %>
+      <%= f.number_field :storage, class: "form-control" %>
+
+      <%= f.submit "入库", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

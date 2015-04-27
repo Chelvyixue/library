@@ -4,11 +4,18 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   get 'static_pages/home'
-  get 'static_pages/about'
-  get 'static_pages/contact'
+  get 'about' => 'static_pages#about'
+  get 'contact' => 'static_pages#contact'
 
-  get 'import_one' => 'static_pages#import_one'
-  get 'import_mul' => 'static_pages#import_mul'
+  # import one book
+  get 'import_one' => 'books#import_one'
+  post 'import_one' => 'books#check_exist'
+  get 'edit_number' => 'books#edit_number'
+  post 'edit_number' => 'books#update_number'
+
+  get 'import_mul' => 'books#import_mul'
+  post 'import_mul' => 'books#process_books'
+
   get 'query' => 'static_pages#query'
   get 'borrow' => 'static_pages#borrow'
   get 'return' => 'static_pages#return'
@@ -19,6 +26,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'static_pages#home'
+
+  resources :books
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

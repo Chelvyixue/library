@@ -40,6 +40,13 @@ h1 {
     text-align: center;
 }
 
+h4.book-profile {
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
 .center {
     margin-left: auto;
     margin-right: auto;
@@ -65,6 +72,34 @@ $logo-background-gray: #c5c5c5;
     }
 }
 
+/* footer */
+
+footer {
+    margin-top: 45px;
+    padding-top: 5px;
+    border-top: 1px solid #c5c5c5;
+    color: $gray-light;
+    a {
+        color: $gray;
+        &:hover {
+            color: $gray-darker;
+        }
+    }
+    small {
+        margin-left: 20px;
+        float: left;
+    }
+    ul {
+        float: right;
+        list-style: none;
+        margin-right: 20px;
+        li {
+            float: left;
+            margin-left: 15px;
+        }
+    }
+}
+
 /* forms */
 
 input, textarea, select .uneditable-input {
@@ -76,5 +111,19 @@ input, textarea, select .uneditable-input {
 
 input {
     height: auto !important;
-    margin-bottom: 50px;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
 }

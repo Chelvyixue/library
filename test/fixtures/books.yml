@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  isbn: 12345
+  category: MyString
+  title: MyString
+  publisher: MyString
+  year: 1999
+  author: MyString
+  price: 9.99
+  total_storage: 1
+  storage: 1
+
+two:
+  isbn: 67890
+  category: MyString
+  title: MyString
+  publisher: MyString
+  year: 1999
+  author: MyString
+  price: 9.99
+  total_storage: 1
+  storage: 1

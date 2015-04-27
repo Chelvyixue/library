@@ -1,0 +1,12 @@
+<% provide(:title, "批量入库") %>
+<h1>批量入库</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_tag(import_mul_path, method: :post) do %>
+      <%= label_tag :book_list, "批量入库信息" %>
+      <%= text_area_tag :book_list, nil, class: "form-control" %>
+      <%= submit_tag "确定", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
