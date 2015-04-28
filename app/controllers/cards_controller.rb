@@ -20,28 +20,53 @@ class CardsController < ApplicationController
   def borrow_card_id
   end
 
-  def borrow
+  def borrow_book
     @card = Card.find_by(id: params[:id] || params[:card_id])
     book = Book.find_by(isbn: params[:isbn])
     if book
-      if book.borrow
-        if @card
+      if @card
+        if book.borrow_book
           current_admin.records.create(card_id: @card.id, book_id: book.id)
           flash[:success] = "借书成功"
           redirect_to @card
         else
-          flash.now[:danger] = "借书证不存在"    # This case never happens
-          @books = @card.borrowed_books.paginate(page: params[:page])
+          flash.now[:danger] = "借书失败，库存不足"
+          @books = @card.borrows.paginate(page: params[:page])
           render 'show'
         end
       else
-        flash.now[:danger] = "借书失败，库存不足"
-        @books = @card.borrowed_books.paginate(page: params[:page])
+        flash.now[:danger] = "借书证不存在"    # This case never happens
+        @books = @card.borrows.paginate(page: params[:page])
         render 'show'
       end
     else
       flash.now[:danger] = "借书失败，书号不存在"
-      @books = @card.borrowed_books.paginate(page: params[:page])
+      @books = @card.borrows.paginate(page: params[:page])
+      render 'show'
+    end
+  end
+
+  def return_book
+    @card = Card.find_by(id: params[:id] || params[:card_id])
+    book = Book.find_by(isbn: params[:isbn])
+    if book
+      if @card
+        if book.return_book(@card.id)
+          flash[:success] = "还书成功"
+          redirect_to @card
+        else
+          flash.now[:danger] = "还书失败，未借这本书"
+          @books = @card.borrows.paginate(page: params[:page])
+          render 'show'
+        end
+      else
+        flash.now[:danger] = "借书证不存在"    # This case never happens
+        @books = @card.borrows.paginate(page: params[:page])
+        render 'show'
+      end
+    else
+      flash.now[:danger] = "还书失败，书号不存在"
+      @books = @card.borrows.paginate(page: params[:page])
       render 'show'
     end
   end

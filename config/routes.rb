@@ -19,13 +19,17 @@ Rails.application.routes.draw do
 
   get 'query' => 'static_pages#query'
 
-  # Borrow books
-  get 'borrow_card_id' => 'cards#borrow_card_id'
-  post 'borrow_card_id' => 'cards#show'
-  get 'borrow_book_id' => 'cards#show'
-  patch 'borrow_book_id' => 'cards#borrow'
+  # Borrow and return books
+  get 'card_id' => 'cards#card_id'
+  post 'card_id' => 'cards#show'
 
-  get 'return' => 'static_pages#return'
+  # Borrow
+  get 'borrow_book_id' => 'cards#show'
+  patch 'borrow_book_id' => 'cards#borrow_book'
+
+  # Return
+  get 'return_book_id' => 'cards#show'
+  patch 'return_book_id' => 'cards#return_book'
 
   # Manage cards
   get 'cards/index'
