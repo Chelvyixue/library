@@ -1,7 +1,8 @@
 # coding: utf-8
 class BooksController < ApplicationController
   before_action :logged_in_admin, only: [:create, :check_exist,
-                                         :edit_number, :update_number]
+                                         :edit_number, :update_number,
+                                         :import_one, :import_mul]
 
   def index
     @books = Book.paginate(page: params[:page])
@@ -22,13 +23,19 @@ class BooksController < ApplicationController
   end
 
   def check_exist
-    @book = Book.find_by(isbn: params[:qisbn])
-    if @book.nil? # not exist
-      @book = Book.new
-      @book.isbn = params[:qisbn]
-      render 'new'
+    if params[:isbn].empty?
+      flash.now[:danger] = "书号不能为空"
+      render 'import_one'
     else
-      render 'edit_number'
+      @book = Book.find_by(isbn: params[:isbn])
+      if @book.nil? # not exist
+        @book = Book.new
+        @book.isbn = params[:isbn]
+        render 'new'
+      else
+        @books = Book.where(isbn: params[:isbn]).paginate(page: nil)
+        render 'edit_number'
+      end
     end
   end
 
@@ -41,19 +48,38 @@ class BooksController < ApplicationController
       flash[:success] = "入库成功"
       redirect_to root_url
     else
-      flash[:danger] = "入库数量必须为正整数"
+      flash.now[:danger] = "入库数量必须为正整数"
+      @books = Book.where(isbn: params[:isbn]).paginate(page: nil)
       render 'edit_number'
     end
+  end
+
+  def import_one
   end
 
   def import_mul
   end
 
-  def process_books
+  def process_batch_import
     books = params[:book_list].split("\n")
-    import_count = _process_books(books)
+    import_count = _process_batch_import(books)
     flash[:success] = "共添加#{import_count}本书"
     redirect_to root_url
+  end
+
+  def search
+    @books = Book.where(title: "").paginate(page: params[:page])    # returns an empty page
+  end
+
+  def query
+    if params[:query].empty?
+      flash.now[:danger] = "查询内容不能为空"
+      @books = Book.where(title: "").paginate(page: params[:page])
+      render 'search'
+    else
+      @books = Book.where(title: params[:query]).paginate(page: params[:page])
+      render 'search'
+    end
   end
 
   private
@@ -64,7 +90,7 @@ class BooksController < ApplicationController
   end
 
   # Given a list of book info, convert it to books
-  def _process_books(books)
+  def _process_batch_import(books)
     import_count = 0
     books.each do |book|
       attrs = book.split("$")

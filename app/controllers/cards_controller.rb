@@ -1,74 +1,14 @@
 # coding: utf-8
 class CardsController < ApplicationController
-  before_action :logged_in_admin, only: [:create, :destroy]
+  before_action :logged_in_admin, only: [:create, :destroy,
+                                         :borrow_book, :return_book]
 
   def index
     @card = Card.new()    # for adding a card
     @cards = Card.paginate(page: params[:page])    # for showing cards
   end
 
-  def show
-    @card = Card.find_by(id: params[:card_id] || params[:id])
-    if @card
-      @books = @card.borrows.paginate(page: params[:page])
-    else
-      flash[:danger] = "借书证不存在"
-      redirect_to borrow_card_id_path
-    end
-  end
-
-  def borrow_card_id
-  end
-
-  def borrow_book
-    @card = Card.find_by(id: params[:id] || params[:card_id])
-    book = Book.find_by(isbn: params[:isbn])
-    if book
-      if @card
-        if book.borrow_book
-          current_admin.records.create(card_id: @card.id, book_id: book.id)
-          flash[:success] = "借书成功"
-          redirect_to @card
-        else
-          flash.now[:danger] = "借书失败，库存不足"
-          @books = @card.borrows.paginate(page: params[:page])
-          render 'show'
-        end
-      else
-        flash.now[:danger] = "借书证不存在"    # This case never happens
-        @books = @card.borrows.paginate(page: params[:page])
-        render 'show'
-      end
-    else
-      flash.now[:danger] = "借书失败，书号不存在"
-      @books = @card.borrows.paginate(page: params[:page])
-      render 'show'
-    end
-  end
-
-  def return_book
-    @card = Card.find_by(id: params[:id] || params[:card_id])
-    book = Book.find_by(isbn: params[:isbn])
-    if book
-      if @card
-        if book.return_book(@card.id)
-          flash[:success] = "还书成功"
-          redirect_to @card
-        else
-          flash.now[:danger] = "还书失败，未借这本书"
-          @books = @card.borrows.paginate(page: params[:page])
-          render 'show'
-        end
-      else
-        flash.now[:danger] = "借书证不存在"    # This case never happens
-        @books = @card.borrows.paginate(page: params[:page])
-        render 'show'
-      end
-    else
-      flash.now[:danger] = "还书失败，书号不存在"
-      @books = @card.borrows.paginate(page: params[:page])
-      render 'show'
-    end
+  def card_id
   end
 
   def create
@@ -93,6 +33,62 @@ class CardsController < ApplicationController
       card.destroy
       flash[:success] = "删除成功"
       redirect_to cards_path
+    end
+  end
+
+  def borrow_book
+    @card = Card.find_by(id: params[:id])
+    book = Book.find_by(isbn: params[:isbn])
+    if book.nil?
+      flash.now[:danger] = "借书失败，书号不存在"
+      @books = @card.borrows.paginate(page: params[:page])
+      render 'show'
+    elsif @card.nil?
+      flash.now[:danger] = "借书证不存在"    # This case never happens
+      @books = @card.borrows.paginate(page: params[:page])
+      render 'show'
+    elsif not book.borrow_book
+      flash.now[:danger] = "借书失败，库存不足"
+      @books = @card.borrows.paginate(page: params[:page])
+      render 'show'
+    else
+      current_admin.records.create(card_id: @card.id, book_id: book.id)
+      flash[:success] = "借书成功"
+      redirect_to @card
+    end
+  end
+
+  def return_book
+    @card = Card.find_by(id: params[:id])
+    book = Book.find_by(isbn: params[:isbn])
+    if book.nil?
+      flash.now[:danger] = "还书失败，书号不存在"
+      @books = @card.borrows.paginate(page: params[:page])
+      render 'show'
+    elsif @card.nil?
+      flash.now[:danger] = "借书证不存在"    # This case never happens
+      @books = @card.borrows.paginate(page: params[:page])
+      render 'show'
+    elsif not book.return_book(@card.id)
+      flash.now[:danger] = "还书失败，未借这本书"
+      @books = @card.borrows.paginate(page: params[:page])
+      render 'show'
+    else
+      flash[:success] = "还书成功"
+      redirect_to @card
+    end
+  end
+
+  def show
+    @card = Card.find_by(id: params[:id])
+    if params[:id].empty?
+      flash.now[:danger] = "借书证不能为空"
+      render 'card_id'
+    elsif @card.nil?
+      flash.now[:danger] = "借书证不存在"
+      render 'card_id'
+    else
+      @books = @card.borrows.paginate(page: params[:page])
     end
   end
 

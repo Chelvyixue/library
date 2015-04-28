@@ -15,9 +15,10 @@ Rails.application.routes.draw do
 
   # Batch import
   get 'import_mul' => 'books#import_mul'
-  patch 'import_mul' => 'books#process_books'
+  patch 'import_mul' => 'books#process_batch_import'
 
-  get 'query' => 'static_pages#query'
+  get 'query' => 'books#search'
+  post 'query' => 'books#query'
 
   # Borrow and return books
   get 'card_id' => 'cards#card_id'

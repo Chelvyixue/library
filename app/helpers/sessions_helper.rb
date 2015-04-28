@@ -18,14 +18,6 @@ module SessionsHelper
     !current_admin.nil?
   end
 
-  def logged_in_admin
-    unless logged_in?
-      store_location
-      flash[:danger] = "请先登录"
-      redirect_to root_url
-    end
-  end
-
   def redirect_back_or(default)
     redirect_to(session[:forwarding_url] || default)
     session.delete(:forwarding_url)

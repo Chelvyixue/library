@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+novel:
   isbn: 12345
   category: MyString
   title: MyString
@@ -11,7 +11,7 @@ one:
   total_storage: 1
   storage: 1
 
-two:
+poem:
   isbn: 67890
   category: MyString
   title: MyString

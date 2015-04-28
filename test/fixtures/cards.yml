@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  dept: MyString
-  card_type: MyString
+baoyu:
+  name: Baoyu
+  dept: Yihongyuan
+  card_type: Stu
 
-two:
-  name: MyString
-  dept: MyString
-  card_type: MyString
+daiyu:
+  name: Daiyu
+  dept: Xiaoxiangguan
+  card_type: Stu

@@ -1,0 +1,19 @@
+<% provide(:title, "查询") %>
+<h1>查询</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_tag(query_path, method: :post) do %>
+      <div class="input-group">
+        <%= text_field_tag :query, nil, class: "form-control" %>
+        <span class="input-group-btn">
+          <%= submit_tag "查询", class: "btn btn-default" %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div style="height: 40px"></div>
+
+<%= render 'shared/display_books' %>
