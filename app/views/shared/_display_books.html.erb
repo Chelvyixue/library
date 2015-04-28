@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= will_paginate @books %>
+
+    <div class="list-group">
+      <% @books.each do |book| %>
+        <a href="#" class="list-group-item">
+          <h4 class="list-group-item-heading"><%= book.title %></h4>
+          <table class="list-group-item-text display-books">
+            <tr>
+              <td>作者：</td><td><%= book.author %></td>
+              <td></td>
+              <td>书号：</td><td><%= book.isbn %></td>
+            </tr>
+            <tr>
+              <td>出版：</td><td><%= book.publisher %></td>
+              <td></td>
+              <td>年份：</td><td><%= book.year %></td>
+            </tr>
+            <tr>
+              <td>类别：</td><td><%= book.category %></td>
+              <td></td>
+              <td>价格：</td><td><%= book.price %></td>
+            </tr>
+            <tr>
+              <td>库存：</td><td><%= book.storage %> / <%= book.total_storage %></td>
+            </tr>
+          </table>
+        </a>
+      <% end %>
+    </div>
+
+    <%= will_paginate @books %>
+  </div>
+</div>

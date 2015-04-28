@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427152338) do
+ActiveRecord::Schema.define(version: 20150428011249) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -48,4 +48,20 @@ ActiveRecord::Schema.define(version: 20150427152338) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "records", force: :cascade do |t|
+    t.integer  "book_id",     limit: 4
+    t.integer  "card_id",     limit: 4
+    t.integer  "admin_id",    limit: 4
+    t.datetime "returned_at"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "records", ["admin_id"], name: "index_records_on_admin_id", using: :btree
+  add_index "records", ["book_id"], name: "index_records_on_book_id", using: :btree
+  add_index "records", ["card_id"], name: "index_records_on_card_id", using: :btree
+
+  add_foreign_key "records", "admins"
+  add_foreign_key "records", "books"
+  add_foreign_key "records", "cards"
 end

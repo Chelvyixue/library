@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'cards/index'
-
   # get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
@@ -9,19 +7,29 @@ Rails.application.routes.draw do
   get 'about' => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
 
-  # import one book
+  # Import one book
   get 'import_one' => 'books#import_one'
   post 'import_one' => 'books#check_exist'
   get 'edit_number' => 'books#edit_number'
-  post 'edit_number' => 'books#update_number'
+  patch 'edit_number' => 'books#update_number'
 
+  # Batch import
   get 'import_mul' => 'books#import_mul'
-  post 'import_mul' => 'books#process_books'
+  patch 'import_mul' => 'books#process_books'
 
   get 'query' => 'static_pages#query'
-  get 'borrow' => 'static_pages#borrow'
+
+  # Borrow books
+  get 'borrow_card_id' => 'cards#borrow_card_id'
+  post 'borrow_card_id' => 'cards#show'
+  get 'borrow_book_id' => 'cards#show'
+  patch 'borrow_book_id' => 'cards#borrow'
+
   get 'return' => 'static_pages#return'
-  get 'card_manage' => 'static_pages#card_manage'
+
+  # Manage cards
+  get 'cards/index'
+  get 'cards/show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -30,7 +38,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   resources :books, only: [:index, :create]
-  resources :cards, only: [:index, :create, :destroy]
+  resources :cards, only: [:index, :show, :create, :destroy]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

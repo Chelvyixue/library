@@ -1,20 +1,4 @@
 <% provide(:title, "所有图书") %>
 <h1>所有图书</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= will_paginate %>
-    <div class="list-group">
-      <% @books.each do |book| %>
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading"><%= book.title %></h4>
-          <p class="list-group-item-text"><%= book.author %></p>
-          <p class="list-group-item-text"><%= book.publisher %></p>
-          <p class="list-group-item-text"><%= book.year %></p>
-          <p class="list-group-item-text"><%= book.storage %> / <%= book.total_storage %></p>
-        </a>
-      <% end %>
-    </div>
-    <%= will_paginate %>
-  </div>
-</div>
+<%= render 'shared/display_books' %>

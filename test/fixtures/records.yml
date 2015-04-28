@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book_id: 
+  card_id: 
+  admin_id: 
+  returned_at: 2015-04-28 09:12:49
+
+two:
+  book_id: 
+  card_id: 
+  admin_id: 
+  returned_at: 2015-04-28 09:12:49

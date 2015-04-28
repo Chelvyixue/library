@@ -1,6 +1,7 @@
 class Book < ActiveRecord::Base
-  include ActiveModel::Validations
+  has_many :records, dependent: :destroy
 
+  default_scope -> { order(title: :asc) }
   validates :isbn, presence: true, uniqueness: true
   validates :category, presence: true
   validates :title, presence: true
@@ -19,6 +20,13 @@ class Book < ActiveRecord::Base
       true
     else
       false
+    end
+  end
+
+  def borrow
+    if storage > 0
+      update(storage: storage - 1)
+      true
     end
   end
 end
