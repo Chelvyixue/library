@@ -2,5 +2,5 @@
 class Card < ActiveRecord::Base
   validates :name, presence: true
   validates :dept, presence: true
-  validates :card_type, presence: true, inclusion: { in: %w(学生 老师) }
+  validates :card_type, presence: true, inclusion: { in: %w(学生 教师) }
 end

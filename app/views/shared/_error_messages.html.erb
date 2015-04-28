@@ -1,10 +1,10 @@
-<% if @book.errors.any? %>
+<% if object.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-danger">
-      共有<%= @book.errors.count %>个错误
+      共有<%= object.errors.count %>个错误
     </div>
     <ul>
-    <% @book.errors.full_messages.each do |msg| %>
+    <% object.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>
