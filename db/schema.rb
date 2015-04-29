@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428011249) do
+ActiveRecord::Schema.define(version: 20150429140040) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -49,12 +49,13 @@ ActiveRecord::Schema.define(version: 20150428011249) do
   end
 
   create_table "records", force: :cascade do |t|
-    t.integer  "book_id",     limit: 4
-    t.integer  "card_id",     limit: 4
-    t.integer  "admin_id",    limit: 4
+    t.integer  "book_id",      limit: 4
+    t.integer  "card_id",      limit: 4
+    t.integer  "admin_id",     limit: 4
     t.datetime "returned_at"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.datetime "to_return_at"
   end
 
   add_index "records", ["admin_id"], name: "index_records_on_admin_id", using: :btree
