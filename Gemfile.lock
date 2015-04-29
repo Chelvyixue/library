@@ -64,6 +64,8 @@ GEM
     execjs (2.5.2)
     faker (1.4.2)
       i18n (~> 0.5)
+    fuzzily (0.3.3)
+      activerecord (>= 2.3.17)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -160,6 +162,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   faker (~> 1.4.2)
+  fuzzily
   jbuilder (~> 2.0)
   jquery-rails
   mysql2

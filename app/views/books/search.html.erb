@@ -9,7 +9,13 @@
         <span class="input-group-btn">
           <%= submit_tag "查询", class: "btn btn-default" %>
         </span>
-      </div>
+      </div><br />
+
+      <%= label_tag :column, "字段" %>
+      <%= select_tag :column, options_for_select([["书名", 1], ["书名（精确匹配）", 2], ["类别", 3], ["作者", 4], ["出版社", 5], ["年份", 6], ["价格", 7]]), class: "form-control" %><br />
+
+      <%= label_tag :order, "排序" %>
+      <%= select_tag :order, options_for_select([["书名", 1], ["书号", 2], ["类别", 3], ["作者", 4], ["出版社", 5], ["年份", 6], ["价格", 7]]), class: "form-control" %>
     <% end %>
   </div>
 </div>

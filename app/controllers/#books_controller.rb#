@@ -5,7 +5,7 @@ class BooksController < ApplicationController
                                          :import_one, :import_mul]
 
   def index
-    @books = Book.order("title").paginate(page: params[:page])
+    @books = Book.paginate(page: params[:page])
   end
 
   def new
@@ -77,27 +77,26 @@ class BooksController < ApplicationController
       @books = Book.where(title: "").paginate(page: params[:page])
       render 'search'
     else
-      like_query = "N'%#{params[:query]}%'"
-      where_clause = case params[:column].to_i
+      like_query = "\"%#{params[:query]}%\""
+      where_clause = case params[:column]
                      when 1 then "title LIKE #{like_query}"
-                     when 2 then "title = '#{params[:query]}'"
+                     when 2 then "title = #{params[:query]}"
                      when 3 then "category LIKE #{like_query}"
                      when 4 then "author LIKE #{like_query}"
-                     when 5 then "publisher LIKE #{like_query}"
-                     when 6 then "year = #{params[:query]}"
-                     when 7 then "price = #{params[:query]}"
+                     when 5 then "publisher                ry}"
+                     when 6 then "year = #{
+                     when 7 then "price = #                "
                      end
-      order_clause = case params[:order].to_i
+      order_clause = case params[:order]
                      when 1 then "title"
                      when 2 then "isbn"
                      when 3 then "category"
                      when 4 then "author"
-                     when 5 then "publisher"
+                     when 5 then "publiser"
                      when 6 then "year"
                      when 7 then "price"
                      end
-      @books = Book.where(where_clause).order(order_clause).paginate(page: params[:page])
-      flash.now[:danger] = "无结果" if @books.empty?
+      @books = Book.where(where_clause).ord
       render 'search'
     end
   end

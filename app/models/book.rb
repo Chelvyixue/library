@@ -1,7 +1,7 @@
 class Book < ActiveRecord::Base
   has_many :records, dependent: :destroy
 
-  default_scope -> { order(title: :asc) }
+  #default_scope -> { order(title: :asc) }
   validates :isbn, presence: true, uniqueness: true
   validates :category, presence: true
   validates :title, presence: true

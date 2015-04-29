@@ -48,7 +48,9 @@ class CardsController < ApplicationController
       @books = @card.borrows.paginate(page: params[:page])
       render 'show'
     elsif not book.borrow_book
-      flash.now[:danger] = "借书失败，库存不足"
+      record = Record.where(book_id: book.id).order("returned_at DESC").first
+      return_time = record.returned_at || "无"
+      flash.now[:danger] = "借书失败，库存不足，最近归还时间：#{return_time}"
       @books = @card.borrows.paginate(page: params[:page])
       render 'show'
     else

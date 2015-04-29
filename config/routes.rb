@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'import_mul' => 'books#import_mul'
   patch 'import_mul' => 'books#process_batch_import'
 
+  # Query
   get 'query' => 'books#search'
   post 'query' => 'books#query'
 
