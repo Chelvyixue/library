@@ -8,7 +8,7 @@ class CardsController < ApplicationController
     @cards = Card.paginate(page: params[:page])    # for showing cards
   end
 
-  def card_id
+  def require_card_id
   end
 
   def create
@@ -82,13 +82,12 @@ class CardsController < ApplicationController
   end
 
   def show
-    @card = Card.find_by(id: params[:id])
-    if params[:id].empty?
+    if params[:id].nil? or params[:id].empty?
       flash.now[:danger] = "借书证不能为空"
-      render 'card_id'
-    elsif @card.nil?
+      render 'require_card_id'
+    elsif not @card = Card.find_by(id: params[:id])
       flash.now[:danger] = "借书证不存在"
-      render 'card_id'
+      render 'require_card_id'
     else
       @books = @card.borrows.paginate(page: params[:page])
     end

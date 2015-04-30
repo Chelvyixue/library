@@ -11,27 +11,27 @@ Rails.application.routes.draw do
   get 'import_one' => 'books#import_one'
   post 'import_one' => 'books#check_exist'
   get 'edit_number' => 'books#edit_number'
-  patch 'edit_number' => 'books#update_number'
+  post 'edit_number' => 'books#update_number'
 
   # Batch import
   get 'import_mul' => 'books#import_mul'
-  patch 'import_mul' => 'books#process_batch_import'
+  post 'import_mul' => 'books#process_batch_import'
 
   # Query
-  get 'query' => 'books#search'
-  post 'query' => 'books#query'
+  get 'search' => 'books#search'
+  get 'query' => 'books#query'
 
   # Borrow and return books
-  get 'card_id' => 'cards#card_id'
-  post 'card_id' => 'cards#show'
+  get 'require_card_id' => 'cards#require_card_id'
+  get 'card_id' => 'cards#show'
 
   # Borrow
   get 'borrow_book_id' => 'cards#show'
-  patch 'borrow_book_id' => 'cards#borrow_book'
+  post 'borrow_book_id' => 'cards#borrow_book'
 
   # Return
   get 'return_book_id' => 'cards#show'
-  patch 'return_book_id' => 'cards#return_book'
+  post 'return_book_id' => 'cards#return_book'
 
   # Manage cards
   get 'cards/index'
