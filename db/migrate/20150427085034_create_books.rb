@@ -1,15 +1,15 @@
 class CreateBooks < ActiveRecord::Migration
   def change
     create_table :books do |t|
-      t.decimal :isbn, precision: 13
-      t.string :category
-      t.string :title
-      t.string :publisher
-      t.decimal :year, precision: 4
-      t.string :author
-      t.decimal :price, precision: 7, scale: 2
-      t.integer :total_storage
-      t.integer :storage
+      t.decimal :isbn, precision: 13, null: false
+      t.string :category, null: false
+      t.string :title, null: false
+      t.string :publisher, null: false
+      t.decimal :year, precision: 4, null: false
+      t.string :author, null: false
+      t.decimal :price, precision: 7, scale: 2, null: false
+      t.integer :total_storage, null: false
+      t.integer :storage, null: false
 
       t.timestamps null: false
     end

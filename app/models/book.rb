@@ -9,7 +9,12 @@ class Book < ActiveRecord::Base
   validates :year, presence: true
   validates :author, presence: true
   validates :price, presence: true
+  validates :total_storage, presence: true
   validates :storage, presence: true
+
+  before_create do
+    self.total_storage = storage
+  end
 
   def increase_by(n)
     n = n.to_i
